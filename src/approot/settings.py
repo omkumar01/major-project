@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-
+import mysql
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,10 +26,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'channels',
     'chatapp',
     'loginregister',
-    'users',
+
+    # django all-auth
+
+    'allauth',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -64,12 +70,17 @@ TEMPLATES = [
 ASGI_APPLICATION = "approot.asgi.application"
 
 # Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+# mysql connector
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': 'chatapp_main',
+        'ENGINE': 'django.db.backends.mysql',
+        'USER': 'om',
+        'PASSWORD': 'Omkumar@123',
+        'OPTIONS': {
+            'autocommit': True
+        },
     }
 }
 
@@ -123,7 +134,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://localhost:6379/1",  # Here we have Redis DSN (for ex. redis://localhost:6379/1)
+        # Here we have Redis DSN (for ex. redis://localhost:6379/1)
+        "LOCATION": "redis://localhost:6379/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "MAX_ENTRIES": 1000  # Increase max cache entries to 1k (from 300)
@@ -137,3 +149,28 @@ SESSION_CACHE_ALIAS = "default"
 
 CELERY_BROKER_URL = "redis://localhost:6379/1"
 CELERY_RESULT_BACKEND = "redis://localhost:6379/1"
+
+# SOCLIAL CONSTS
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'offline',
+        },
+
+    },
+}
+
+SITE_ID = 3
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'

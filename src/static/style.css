@@ -2,9 +2,7 @@ body {
   background-color: #f4f7f6;
   margin-top: 20px;
 }
-.container {
-  padding-top: 10em;
-}
+
 .card {
   background: #fff;
   transition: 0.5s;
