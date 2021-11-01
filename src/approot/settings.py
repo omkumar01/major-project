@@ -29,13 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'channels',
     'chatapp',
-    'loginregister',
 
-    # django all-auth
-
-    'allauth',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -149,28 +143,3 @@ SESSION_CACHE_ALIAS = "default"
 
 CELERY_BROKER_URL = "redis://localhost:6379/1"
 CELERY_RESULT_BACKEND = "redis://localhost:6379/1"
-
-# SOCLIAL CONSTS
-
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
-
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'offline',
-        },
-
-    },
-}
-
-SITE_ID = 3
-
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'

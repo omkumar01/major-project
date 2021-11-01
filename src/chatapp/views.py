@@ -4,5 +4,5 @@ from django.views.generic import View
 
 class ChatApp(View):
     def get(self, request):
-
-        return render(request, "index.html", {})
+        context = {}
+        return render(request, "index.html", context)

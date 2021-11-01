@@ -1,13 +1,12 @@
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import TemplateView
-from django.contrib.auth.views import LogoutView
-
+from .views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("login-register", TemplateView.as_view(template_name="login_register.html"),
-         name="loginregister"),
-    path("", include("chatapp.urls"), name="chatapp"),
-    path("accounts/", include('allauth.urls')),
-    path('logout', LogoutView.as_view()),
+    path("", include("chatapp.urls")),
+    # authentication urls
+    path('LoginRegister/', LoginRegister.as_view(), name='login'),
+    path('register', Register.as_view()),
+    path('logout/', Logout.as_view()),
+    path('changepassword/', ChangePassowrd.as_view()),
 ]
