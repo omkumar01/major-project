@@ -1,13 +1,13 @@
 let loc = window.location;
-let wsStart = 'ws://';
+let wsStart = 'wss://';
 
-if(loc.protocol === 'https'){
-    wsStart = 'wss://'
-}
+// if(loc.protocol === 'https'){
+//     wsStart = 'wss://'
+// }
 
-let endpoint = wsStart + loc.host + loc.pathname;
+let ept = wsStart + loc.host;
 
-var socket = new WebSocket(endpoint);
+var socket = new WebSocket("wss://localhost:");
 
 socket.onopen = async function(e){
     console.log('open', e);
@@ -18,7 +18,7 @@ socket.onmessage = async function(e){
 }
 
 socket.onerror = async function(e){
-    console.log('error', e);
+    console.log('error aya bhiya', e);
 }
 
 socket.onclose = async function(e){
